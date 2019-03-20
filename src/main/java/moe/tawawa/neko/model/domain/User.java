@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * @author: laiang
+ * @author: GeeKaven
  * @date: 2019/3/17 23:24
  */
 @Data

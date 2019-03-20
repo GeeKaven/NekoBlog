@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.Table;
 
 /**
- * @author: laiang
+ * @author: GeeKaven
  * @date: 2019/3/17 23:15
  */
 @Data

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * @author: laiang
+ * @author: GeeKaven
  * @date: 2019/3/14 1:56
  */
 
