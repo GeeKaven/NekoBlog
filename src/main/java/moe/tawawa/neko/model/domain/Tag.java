@@ -36,11 +36,6 @@ public class Tag {
     private Long userId;
 
     /**
-     * 唯一字符串编号
-     */
-    private String nanoId;
-
-    /**
      * 标签名称
      */
     private String name;

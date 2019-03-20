@@ -23,7 +23,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
 
-    public static final Integer STATUS_DRAFT = 0;
+    public static final Integer STATUS_DEFAULT = 0;
     public static final Integer STATUS_PUBLISH = 1;
     public static final Integer STATUS_DEL = 2;
 
@@ -40,11 +40,6 @@ public class Post {
      * 文章用户
      */
     private Long userId;
-
-    /**
-     * 唯一字符串编号
-     */
-    private String nanoId;
 
     /**
      * 类目编号
@@ -65,17 +60,17 @@ public class Post {
     /**
      * 评论数量
      */
-    private Integer commentNum;
+    private Integer commentNum = 0;
 
     /**
      * 是否显示评论
      */
-    private Boolean enableComment;
+    private Boolean enableComment = false;
 
     /**
      * 文章状态 （草稿，发布，删除）
      */
-    private Integer status = STATUS_DRAFT;
+    private Integer status = STATUS_DEFAULT;
 
     /**
      * 文章类型 （文章，页面）

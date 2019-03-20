@@ -33,11 +33,6 @@ public class Category {
     private Long userId;
 
     /**
-     * 唯一字符串编号
-     */
-    private String nanoId;
-
-    /**
      * 状态
      */
     private Integer status;

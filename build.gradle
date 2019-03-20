@@ -13,6 +13,7 @@ ext {
 	lombokVersion = '1.18.6'
 	commonsLangVersion = '3.8.1'
 	jacksonVersion = '2.9.8'
+	commonsCollectionVersion = '3.2.2'
 }
 
 repositories {
@@ -24,6 +25,7 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web"
 	implementation "com.google.guava:guava:$guavaVersion"
 	implementation "org.apache.commons:commons-lang3:$commonsLangVersion"
+	implementation "commons-collections:commons-collections:$commonsCollectionVersion"
 	implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
 
 	compileOnly "org.projectlombok:lombok:$lombokVersion"
