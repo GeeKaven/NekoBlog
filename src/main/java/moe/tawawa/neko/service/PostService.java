@@ -81,11 +81,21 @@ public class PostService {
     public ListData<PostVO> getPostByStatusAndType(Integer status, Integer type, Pageable pageable) {
 
         Page<Post> postPage = postRepository.findByStatusAndType(status, type, pageable);
-        List<PostVO> postList = chainService.getPostChainHelper(postPage.getContent()).getObjects();
+        List<PostVO> postList = chainService.getPostChainHelper(postPage.getContent())
+                .getObjects();
         ListData<PostVO> result = new ListData<>();
         result.setList(postList);
         result.setSize(postPage.getTotalElements());
         return result;
+    }
+
+    public PostVO getPostById(Long postId) {
+        Optional<Post> opPost = postRepository.findById(postId);
+        if (!opPost.isPresent()) {
+            throw new BadRequestException(ErrorCode.NOT_EXIST);
+        }
+        return chainService.getPostChainHelper(opPost.get())
+                .getObject();
     }
 
     private Long updateStatus(Long postId, Integer status) {

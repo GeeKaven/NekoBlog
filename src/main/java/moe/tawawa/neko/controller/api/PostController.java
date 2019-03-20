@@ -38,4 +38,10 @@ public class PostController {
         ListData<PostVO> result = postService.getPostByStatusAndType(Post.STATUS_PUBLISH, Post.TYPE_POST, pageable);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), result);
     }
+
+    @GetMapping(value = "{post_id}")
+    public JsonResponse queryPostDetail(@PathVariable(value = "post_id") Long postId) {
+        PostVO postVO = postService.getPostById(postId);
+        return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), postVO);
+    }
 }

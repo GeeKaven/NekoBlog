@@ -1,5 +1,6 @@
 package moe.tawawa.neko.service;
 
+import com.google.common.collect.Lists;
 import moe.tawawa.neko.model.domain.Post;
 import moe.tawawa.neko.model.vo.PostVO;
 import moe.tawawa.neko.repository.PostRepository;
@@ -22,6 +23,10 @@ public class ChainService {
     @Autowired
     public ChainService(PostRepository postRepository) {
         this.postRepository = postRepository;
+    }
+
+    public PostChainHelper getPostChainHelper(Post post) {
+        return new PostChainHelper(Lists.newArrayList(new PostVO(post)));
     }
 
     public PostChainHelper getPostChainHelper(List<Post> postList) {
