@@ -2,7 +2,9 @@ package moe.tawawa.neko.controller.api;
 
 import moe.tawawa.neko.model.domain.Post;
 import moe.tawawa.neko.model.enums.ErrorCode;
+import moe.tawawa.neko.model.request.CreatePostRequest;
 import moe.tawawa.neko.model.response.JsonResponse;
+import moe.tawawa.neko.model.response.data.CreateData;
 import moe.tawawa.neko.model.response.data.ListData;
 import moe.tawawa.neko.model.vo.PostVO;
 import moe.tawawa.neko.service.PostService;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,13 +39,19 @@ public class PostController {
     public JsonResponse queryPostByPage(@PathVariable(value = "page") Integer page, @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC) Sort sort) {
         int size = 10;
         Pageable pageable = PageRequest.of(page, size, sort);
-        ListData<PostVO> result = postService.getPostByStatusAndType(Post.STATUS_PUBLISH, Post.TYPE_POST, pageable);
+        ListData<PostVO> result = postService.getPostVOByStatusAndType(Post.STATUS_PUBLISH, Post.TYPE_POST, pageable);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), result);
     }
 
     @GetMapping(value = "{post_id}")
     public JsonResponse queryPostDetail(@PathVariable(value = "post_id") Long postId) {
-        PostVO postVO = postService.getPostById(postId);
+        PostVO postVO = postService.getPostVOById(postId);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), postVO);
+    }
+
+    @PostMapping(value = "/create")
+    public JsonResponse createPost(@RequestBody CreatePostRequest request) {
+        CreateData createData = postService.createPost(request);
+        return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), createData);
     }
 }

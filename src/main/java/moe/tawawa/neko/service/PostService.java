@@ -2,9 +2,10 @@ package moe.tawawa.neko.service;
 
 import moe.tawawa.neko.exception.BadRequestException;
 import moe.tawawa.neko.model.domain.Post;
-import moe.tawawa.neko.model.domain.User;
 import moe.tawawa.neko.model.enums.ErrorCode;
 import moe.tawawa.neko.model.request.CreatePostRequest;
+import moe.tawawa.neko.model.request.UpdatePostRequest;
+import moe.tawawa.neko.model.response.data.CreateData;
 import moe.tawawa.neko.model.response.data.ListData;
 import moe.tawawa.neko.model.vo.PostVO;
 import moe.tawawa.neko.repository.PostRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,10 +38,10 @@ public class PostService {
     /**
      * 创建文章
      * @param request 文章数据
-     * @param user 用户
      * @return 文章Id
      */
-    public Long createPost(CreatePostRequest request, User user) {
+    @Transactional
+    public CreateData createPost(CreatePostRequest request) {
         // TODO: 校验用户
 
         // TODO: 无类目时查询默认类目
@@ -52,7 +54,20 @@ public class PostService {
         post.setType(request.getType());
         postRepository.save(post);
 
-        return post.getId();
+        return new CreateData(post.getId());
+    }
+
+    @Transactional
+    public void updatePost(UpdatePostRequest request) {
+        if (request.getId() == null) {
+            throw new BadRequestException(ErrorCode.NOT_EXIST);
+        }
+        Post post = getPostById(request.getId());
+        post.setTitle(request.getTitle());
+        post.setContent(request.getContent());
+        post.setEnableComment(request.getEnableComment());
+        post.setType(request.getType());
+        postRepository.save(post);
     }
 
     /**
@@ -78,7 +93,7 @@ public class PostService {
      * @param pageable 分页信息
      * @return 文章列表
      */
-    public ListData<PostVO> getPostByStatusAndType(Integer status, Integer type, Pageable pageable) {
+    public ListData<PostVO> getPostVOByStatusAndType(Integer status, Integer type, Pageable pageable) {
 
         Page<Post> postPage = postRepository.findByStatusAndType(status, type, pageable);
         List<PostVO> postList = chainService.getPostChainHelper(postPage.getContent())
@@ -89,22 +104,23 @@ public class PostService {
         return result;
     }
 
-    public PostVO getPostById(Long postId) {
-        Optional<Post> opPost = postRepository.findById(postId);
-        if (!opPost.isPresent()) {
-            throw new BadRequestException(ErrorCode.NOT_EXIST);
-        }
-        return chainService.getPostChainHelper(opPost.get())
+    public PostVO getPostVOById(Long postId) {
+        Post post = getPostById(postId);
+        return chainService.getPostChainHelper(post)
                 .getObject();
     }
 
     private Long updateStatus(Long postId, Integer status) {
+        Post post = getPostById(postId);
+        post.setStatus(status);
+        return postRepository.save(post).getId();
+    }
+
+    private Post getPostById(Long postId) {
         Optional<Post> opPost = postRepository.findById(postId);
         if (!opPost.isPresent()) {
             throw new BadRequestException(ErrorCode.NOT_EXIST);
         }
-        Post post = opPost.get();
-        post.setStatus(status);
-        return postRepository.save(post).getId();
+        return opPost.get();
     }
 }
