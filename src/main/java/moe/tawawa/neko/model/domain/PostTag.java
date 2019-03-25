@@ -5,7 +5,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -14,6 +17,7 @@ import java.util.Date;
  * @date: 2019/3/25 19:57
  */
 @Data
+@Entity
 @Table(name = "neko_post_tag")
 @EntityListeners(AuditingEntityListener.class)
 public class PostTag {
@@ -21,6 +25,8 @@ public class PostTag {
     /**
      * 文章，tag，关联编号
      */
+    @Id
+    @GeneratedValue
     private Long id;
 
     /**
