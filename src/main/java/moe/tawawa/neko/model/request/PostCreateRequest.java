@@ -7,7 +7,7 @@ import lombok.Data;
  * @date: 2019/3/18 8:30
  */
 @Data
-public class CreatePostRequest {
+public class PostCreateRequest {
     private String title;
 
     private String content;

@@ -3,15 +3,19 @@ package moe.tawawa.neko.service;
 import moe.tawawa.neko.exception.BadRequestException;
 import moe.tawawa.neko.model.domain.Post;
 import moe.tawawa.neko.model.enums.ErrorCode;
-import moe.tawawa.neko.model.request.CreatePostRequest;
-import moe.tawawa.neko.model.request.UpdatePostRequest;
+import moe.tawawa.neko.model.request.ElementPostRequest;
+import moe.tawawa.neko.model.request.ListRequest;
+import moe.tawawa.neko.model.request.PostCreateRequest;
+import moe.tawawa.neko.model.request.PostUpdateRequest;
 import moe.tawawa.neko.model.response.data.CreateData;
 import moe.tawawa.neko.model.response.data.ListData;
 import moe.tawawa.neko.model.vo.PostVO;
 import moe.tawawa.neko.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +29,14 @@ import java.util.Optional;
 @Service
 public class PostService {
 
-    private final ChainService chainService;
+    private final StickService stickService;
 
     private final PostRepository postRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository, ChainService chainService) {
+    public PostService(PostRepository postRepository, StickService stickService) {
         this.postRepository = postRepository;
-        this.chainService = chainService;
+        this.stickService = stickService;
     }
 
     /**
@@ -41,9 +45,7 @@ public class PostService {
      * @return 文章Id
      */
     @Transactional
-    public CreateData createPost(CreatePostRequest request) {
-        // TODO: 校验用户
-
+    public CreateData createPost(PostCreateRequest request) {
         // TODO: 无类目时查询默认类目
 
         Post post = new Post();
@@ -58,7 +60,7 @@ public class PostService {
     }
 
     @Transactional
-    public void updatePost(UpdatePostRequest request) {
+    public void updatePost(PostUpdateRequest request) {
         if (request.getId() == null) {
             throw new BadRequestException(ErrorCode.NOT_EXIST);
         }
@@ -88,25 +90,29 @@ public class PostService {
 
     /**
      * 通过状态，类型获取文章列表
-     * @param status 文章状态
-     * @param type 文章类型
-     * @param pageable 分页信息
      * @return 文章列表
      */
-    public ListData<PostVO> getPostVOByStatusAndType(Integer status, Integer type, Pageable pageable) {
+    public ListData<PostVO> getPostListByPage(ListRequest request) {
 
-        Page<Post> postPage = postRepository.findByStatusAndType(status, type, pageable);
-        List<PostVO> postList = chainService.getPostChainHelper(postPage.getContent())
-                .getObjects();
-        ListData<PostVO> result = new ListData<>();
-        result.setList(postList);
-        result.setSize(postPage.getTotalElements());
-        return result;
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , new Sort(Sort.Direction.DESC, "id"));
+        Page<Post> postPage = postRepository.findByStatusAndType(Post.STATUS_PUBLISH, Post.TYPE_POST, pageable);
+        return buildPostList(postPage);
     }
 
-    public PostVO getPostVOById(Long postId) {
+    public ListData<PostVO> getPostListByCategory(ElementPostRequest request) {
+
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , new Sort(Sort.Direction.DESC, "id"));
+        Page<Post> postPage = postRepository.findByStatusAndTypeAndCategoryId(Post.STATUS_PUBLISH, Post.TYPE_POST, request.getId(), pageable);
+        return buildPostList(postPage);
+    }
+
+    public ListData<PostVO> getPostListByTag(ElementPostRequest request) {
+        return null;
+    }
+
+    public PostVO getPostInfo(Long postId) {
         Post post = getPostById(postId);
-        return chainService.getPostChainHelper(post)
+        return stickService.getPostStickHelper(post)
                 .getObject();
     }
 
@@ -122,5 +128,14 @@ public class PostService {
             throw new BadRequestException(ErrorCode.NOT_EXIST);
         }
         return opPost.get();
+    }
+
+    private ListData<PostVO> buildPostList(Page<Post> postPage) {
+        List<PostVO> postList = stickService.getPostStickHelper(postPage.getContent())
+                .getObjects();
+        ListData<PostVO> result = new ListData<>();
+        result.setList(postList);
+        result.setSize(postPage.getTotalElements());
+        return result;
     }
 }

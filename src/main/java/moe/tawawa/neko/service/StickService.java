@@ -16,25 +16,25 @@ import java.util.stream.Collectors;
  * @date: 2019/3/20 20:51
  */
 @Service
-public class ChainService {
+public class StickService {
 
     private final PostRepository postRepository;
 
     @Autowired
-    public ChainService(PostRepository postRepository) {
+    public StickService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
-    public PostChainHelper getPostChainHelper(Post post) {
-        return new PostChainHelper(Lists.newArrayList(new PostVO(post)));
+    public PostStickHelper getPostStickHelper(Post post) {
+        return new PostStickHelper(Lists.newArrayList(new PostVO(post)));
     }
 
-    public PostChainHelper getPostChainHelper(List<Post> postList) {
-        return new PostChainHelper(postList.stream().map(PostVO::new).collect(Collectors.toList()));
+    public PostStickHelper getPostStickHelper(List<Post> postList) {
+        return new PostStickHelper(postList.stream().map(PostVO::new).collect(Collectors.toList()));
     }
 
-    public class PostChainHelper extends BaseChainHelper<PostVO> {
-        PostChainHelper(List<PostVO> objects) {
+    public class PostStickHelper extends BaseStickHelper<PostVO> {
+        PostStickHelper(List<PostVO> objects) {
             super(objects);
         }
 
@@ -45,14 +45,14 @@ public class ChainService {
         // TODO: 标签
     }
 
-    private class BaseChainHelper<T> {
+    private class BaseStickHelper<T> {
         List<T> objects;
 
-        BaseChainHelper() {
+        BaseStickHelper() {
 
         }
 
-        BaseChainHelper(List<T> objects) {
+        BaseStickHelper(List<T> objects) {
             this.objects = objects;
         }
 

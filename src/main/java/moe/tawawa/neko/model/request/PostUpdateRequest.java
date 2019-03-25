@@ -9,7 +9,7 @@ import java.util.List;
  * @date: 2019/3/20 23:41
  */
 @Data
-public class UpdatePostRequest {
+public class PostUpdateRequest {
 
     private Long id;
 
