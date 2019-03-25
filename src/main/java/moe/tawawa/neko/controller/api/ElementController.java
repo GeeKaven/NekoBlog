@@ -31,7 +31,7 @@ public class ElementController {
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), postList);
     }
 
-    @PostMapping(value = "/api/category/post/list")
+    @PostMapping(value = "/api/tag/post/list")
     public JsonResponse getPostListByTag(@RequestBody ElementPostRequest request) {
         ListData<PostVO> postList = postService.getPostListByTag(request);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), postList);

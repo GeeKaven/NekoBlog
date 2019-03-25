@@ -9,8 +9,10 @@ import moe.tawawa.neko.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -28,14 +30,14 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping(value = "/page/{page}")
+    @PostMapping(value = "/list")
     public JsonResponse queryPostByPage(@RequestBody ListRequest request) {
         ListData<PostVO> result = postService.getPostListByPage(request);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), result);
     }
 
-    @GetMapping(value = "{post_id}")
-    public JsonResponse queryPostDetail(@PathVariable(value = "post_id") Long postId) {
+    @GetMapping(value = "/info")
+    public JsonResponse queryPostDetail(@RequestParam(value = "post_id", defaultValue = "0") Long postId) {
         PostVO postVO = postService.getPostInfo(postId);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), postVO);
     }
