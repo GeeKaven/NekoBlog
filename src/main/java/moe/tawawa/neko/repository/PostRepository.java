@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
  * @date: 2019/3/18 8:04
  */
 public interface PostRepository extends JpaRepository<Post, Long> {
-
     /**
      * 根据文章类型和状态分页查询
      * @param status 状态

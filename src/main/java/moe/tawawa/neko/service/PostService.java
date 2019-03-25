@@ -2,15 +2,22 @@ package moe.tawawa.neko.service;
 
 import moe.tawawa.neko.exception.BadRequestException;
 import moe.tawawa.neko.model.domain.Post;
+import moe.tawawa.neko.model.domain.PostTag;
+import moe.tawawa.neko.model.domain.Tag;
+import moe.tawawa.neko.model.domain.User;
 import moe.tawawa.neko.model.enums.ErrorCode;
 import moe.tawawa.neko.model.request.ElementPostRequest;
 import moe.tawawa.neko.model.request.ListRequest;
 import moe.tawawa.neko.model.request.PostCreateRequest;
+import moe.tawawa.neko.model.request.PostTagRequest;
 import moe.tawawa.neko.model.request.PostUpdateRequest;
 import moe.tawawa.neko.model.response.data.CreateData;
 import moe.tawawa.neko.model.response.data.ListData;
+import moe.tawawa.neko.model.response.data.VoidData;
 import moe.tawawa.neko.model.vo.PostVO;
 import moe.tawawa.neko.repository.PostRepository;
+import moe.tawawa.neko.repository.PostTagRepository;
+import moe.tawawa.neko.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,10 +40,19 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    private final TagRepository tagRepository;
+
+    private final PostTagRepository postTagRepository;
+
     @Autowired
-    public PostService(PostRepository postRepository, StickService stickService) {
+    public PostService(PostRepository postRepository,
+                       TagRepository tagRepository,
+                       PostTagRepository postTagRepository,
+                       StickService stickService) {
         this.postRepository = postRepository;
         this.stickService = stickService;
+        this.tagRepository = tagRepository;
+        this.postTagRepository = postTagRepository;
     }
 
     /**
@@ -108,6 +124,23 @@ public class PostService {
 
     public ListData<PostVO> getPostListByTag(ElementPostRequest request) {
         return null;
+    }
+
+    public CreateData addPostTag(PostTagRequest request) {
+        PostTag postTag = new PostTag();
+        postTag.setPostId(request.getPostId());
+        postTag.setTagId(request.getTagId());
+        postTagRepository.save(postTag);
+        return new CreateData(postTag.getId());
+    }
+
+    @Transactional
+    public void removePostTag(PostTagRequest request) {
+        PostTag postTag = postTagRepository.findPostTagByPostIdAndTagId(request.getPostId(), request.getTagId());
+        if (postTag == null) {
+            throw new BadRequestException(ErrorCode.POST_TAG_NOT_EXIST);
+        }
+        postTagRepository.delete(postTag);
     }
 
     public PostVO getPostInfo(Long postId) {

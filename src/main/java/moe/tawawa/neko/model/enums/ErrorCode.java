@@ -11,7 +11,9 @@ public enum ErrorCode {
 
     SUCCESS(100000, "请求成功"),
     BAD_REQUEST(100001, "请求错误"),
-    NOT_EXIST(100002, "请求的数据不存在");
+    NOT_EXIST(100002, "请求的数据不存在"),
+    POST_TAG_NOT_EXIST(100003, "文章与标签没有关联")
+    ;
 
     private int code;
     private String errorMsg;

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import java.util.Date;
  * @date: 2019/3/17 22:58
  */
 @Data
+@Entity
 @Table(name = "neko_category")
 @EntityListeners(AuditingEntityListener.class)
 public class Category {
