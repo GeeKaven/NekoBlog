@@ -6,29 +6,32 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @author: GeeKaven
- * @date: 2019/3/17 22:58
+ * @date: 2019/3/25 19:57
  */
 @Data
-@Table(name = "neko_category")
+@Table(name = "neko_post_tag")
 @EntityListeners(AuditingEntityListener.class)
-public class Category {
-
-    public static final Integer STATUS_NORMAL = 0;
-    public static final Integer STATUS_DEL = 1;
+public class PostTag {
 
     /**
-     * 分类编号
+     * 文章，tag，关联编号
      */
-    @Id
-    @GeneratedValue
     private Long id;
+
+    /**
+     * 文章编号
+     */
+    private Long postId;
+
+    /**
+     * tag编号
+     */
+    private Long tagId;
 
     /**
      * 用户编号
@@ -36,18 +39,14 @@ public class Category {
     private Long userId;
 
     /**
-     * 状态
+     * 创建时间
      */
-    private Integer status;
-
-    /**
-     * 分类名称
-     */
-    private String name;
-
     @CreatedDate
     private Date createdAt;
 
+    /**
+     * 更新时间
+     */
     @LastModifiedDate
     private Date updatedAt;
 }
