@@ -12,6 +12,10 @@ public class PostCreateRequest {
 
     private String content;
 
+    private String summary;
+
+    private String permalink;
+
     private Long categoryId;
 
     private Boolean enableComment;

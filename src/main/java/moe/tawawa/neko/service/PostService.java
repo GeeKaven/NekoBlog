@@ -68,6 +68,8 @@ public class PostService {
         post.setEnableComment(request.getEnableComment());
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
+        post.setSummary(request.getSummary());
+        post.setPermalink(request.getPermalink());
         post.setCategoryId(request.getCategoryId());
         post.setType(request.getType());
         postRepository.save(post);

@@ -60,6 +60,16 @@ public class Post {
     private String content;
 
     /**
+     * 文章摘要
+     */
+    private String summary;
+
+    /**
+     * 永久链接
+     */
+    private String permalink;
+
+    /**
      * 评论数量
      */
     private Integer commentNum = 0;
