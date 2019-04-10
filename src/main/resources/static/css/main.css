@@ -1,22 +1,93 @@
-html, body {
-    font-family: 'Open Sans', serif;
-    font-size: 16px;
-    line-height: 1.5;
-    height: 100%;
-    background: #ECF0F3;
+.nav-tag {
+    padding-right:30px;
 }
-
-.menu-list a {
-    color: #0F1D38;
-    font-size: 14px;
-    font-weight: 700;
+.tag-notif {
+    border-radius:50%;
+    position:absolute;
+    top:5px;
+    margin-left:10px;
 }
-.menu-list a:hover {
-    background-color: transparent;
-    color: #276cda;
+@media (max-width:768px) {
+    .tag-notif {
+        margin-left:-2px;
+    }
+}.hero {
+     background-color:#44475a;
+ }
+.navbar {
+    background:#44475a;
 }
-.menu-list a.is-active {
-    background-color: transparent;
-    color: #276cda;
-    font-weight: 700;
+.navbar-item {
+    background-color:#44475a;
+    color:#f8f8f2 !important;
+}
+.navbar-item.is-active {
+    background-color:#6272a4 !important;
+    color:#f8f8f2 !important;
+}
+.navbar-item:hover {
+    background-color:#6272a4 !important;
+    color:#f8f8f2 !important;
+}
+.navbar .is--brand:hover {
+    background-color:#44475a !important;
+}
+.navbar-brand-logo {
+    max-height:3rem !important;
+    background-color:#44475a;
+    border-radius:.25em;
+    padding:.25em;
+}
+.navbar-dropdown {
+    background-color:#44475a;
+}
+.navbar-dropdown .navbar-item {
+    background-color:#44475a;
+}
+.navbar-burger {
+    background-color:#44475a !important;
+    border:0;
+}
+.navbar-burger span {
+    background-color:#8be9fd;
+}
+.navbar-link {
+    color:#f8f8f2;
+}
+.navbar-link figure img {
+    border-radius:50%;
+    max-height:2em;
+}
+.navbar-link:hover {
+    background-color:#44475a;
+}
+.message.is-dark .message-body {
+    background-color:#4f5269;
+}
+.breadcrumb:not(:last-child) {
+    margin-bottom:0;
+}
+@media screen and (min-width:1088px) {
+    .navbar-item.has-dropdown:hover .navbar-link,.navbar-item.has-dropdown.is-active .navbar-link {
+        background-color:#44475a;
+    }
+}.aside {
+     background:#44475a;
+     padding:2em .2em 0 1em;
+ }
+.aside a {
+    color:#f8f8f2;
+}
+.aside .menu-list li {
+    margin-top:.5em;
+}
+.main {
+    padding:2em 1em 0 1em;
+}
+.menu-label {
+    color:#8be9fd;
+    margin-left:.5em;
+}
+.block {
+    margin-top:.5em;
 }
