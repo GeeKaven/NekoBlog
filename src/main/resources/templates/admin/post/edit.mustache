@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+    {{>layout/head}}
+    <body>
+        {{>layout/header}}
+        <div class="wrapper">
+            <div class="columns">
+                {{>layout/menu}}
+                <main class="column main">
+                    <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+                        <ul>
+                            <li><a href="#">首页</a></li>
+                            <li><a href="#">文章管理</a></li>
+                            <li class="is-active"><a href="#" aria-current="page">编辑文章</a></li>
+                        </ul>
+                    </nav>
+                    <div class="columns is-multiline">
+                        <div class="column is-9">
+                            {{^post}}
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">文章标题</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <textarea class="textarea" placeholder="Enter title"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">文章内容</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <textarea class="textarea" placeholder="Enter content"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/post}}
+                            {{#post}}
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label">文章标题</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <div class="control">
+                                                <textarea class="textarea" placeholder="Enter title">{{title}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label">文章内容</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <div class="control">
+                                                <textarea class="textarea" placeholder="Enter content">{{content}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/post}}
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <!-- Left empty for spacing -->
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-primary">
+                                                发布文章
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        {{>layout/footer}}
+    </body>
+</html>

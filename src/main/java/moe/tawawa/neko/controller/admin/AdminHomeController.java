@@ -1,5 +1,7 @@
 package moe.tawawa.neko.controller.admin;
 
+import moe.tawawa.neko.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminHomeController {
+
+    private final PostService postService;
+
+    @Autowired
+    public AdminHomeController(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping
     public String index(Model model) {
