@@ -106,6 +106,11 @@ public class PostService {
         return updateStatus(postId, Post.STATUS_DEL);
     }
 
+    public Page<Post> findAllByPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size , new Sort(Sort.Direction.DESC, "id"));
+        return postRepository.findAll(pageable);
+    }
+
     /**
      * 通过状态，类型获取文章列表
      * @return 文章列表
