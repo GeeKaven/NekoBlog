@@ -70,16 +70,6 @@ public class Post {
     private String permalink;
 
     /**
-     * 评论数量
-     */
-    private Integer commentNum = 0;
-
-    /**
-     * 是否显示评论
-     */
-    private Boolean enableComment = false;
-
-    /**
      * 文章状态 （草稿，发布，删除）
      */
     private Integer status = STATUS_DEFAULT;

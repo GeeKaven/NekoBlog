@@ -71,16 +71,4 @@ public class AdminPostController {
         model.addAttribute("post", postVO);
         return "admin/post/edit";
     }
-
-    @PostMapping(value = "/create")
-    public JsonResponse createPost(@RequestBody PostCreateRequest request) {
-        CreateData createData = postService.createPost(request);
-        return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), createData);
-    }
-
-    @PostMapping(value = "/update")
-    public JsonResponse updatePost(@RequestBody PostUpdateRequest request) {
-        postService.updatePost(request);
-        return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), new VoidData());
-    }
 }

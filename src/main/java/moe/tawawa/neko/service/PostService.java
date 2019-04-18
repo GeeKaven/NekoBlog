@@ -65,7 +65,6 @@ public class PostService {
         // TODO: 无类目时查询默认类目
 
         Post post = new Post();
-        post.setEnableComment(request.getEnableComment());
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
         post.setSummary(request.getSummary());
@@ -85,7 +84,6 @@ public class PostService {
         Post post = getPostById(request.getId());
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
-        post.setEnableComment(request.getEnableComment());
         post.setType(request.getType());
         postRepository.save(post);
     }

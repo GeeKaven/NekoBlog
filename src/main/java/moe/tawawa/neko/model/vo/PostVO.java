@@ -19,10 +19,6 @@ public class PostVO {
 
     private String content;
 
-    private Integer commentNum;
-
-    private Boolean enableComment;
-
     private CategoryVO category;
 
     private List<TagVO> tags;

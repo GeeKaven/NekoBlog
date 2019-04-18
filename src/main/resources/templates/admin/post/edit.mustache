@@ -15,28 +15,42 @@
                         </ul>
                     </nav>
                     <div class="columns is-multiline">
-                        <div class="column is-9">
+                        <div class="column is-9" id="post-form">
                             {{^post}}
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">文章标题</label>
+                                    <label class="label" for="post-title">文章标题</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <textarea class="textarea" placeholder="Enter title"></textarea>
+                                            <textarea name="title" class="textarea" id="post-title" placeholder="Enter title"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">文章内容</label>
+                                    <label class="label" for="post-content">文章内容</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <textarea class="textarea" placeholder="Enter content"></textarea>
+                                            <textarea name="content" id="post-content" class="textarea" placeholder="Enter content" rows="16"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <!-- Left empty for spacing -->
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-primary" onclick="post.add()">
+                                                发布文章
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -45,43 +59,43 @@
                             {{#post}}
                                 <div class="field is-horizontal">
                                     <div class="field-label is-normal">
-                                        <label class="label">文章标题</label>
+                                        <label class="label" for="post-title">文章标题</label>
                                     </div>
                                     <div class="field-body">
                                         <div class="field">
                                             <div class="control">
-                                                <textarea class="textarea" placeholder="Enter title">{{title}}</textarea>
+                                                <textarea name="title" id="post-title" class="textarea" placeholder="Enter title">{{title}}</textarea>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="field is-horizontal">
                                     <div class="field-label is-normal">
-                                        <label class="label">文章内容</label>
+                                        <label class="label" for="post-content">文章内容</label>
                                     </div>
                                     <div class="field-body">
                                         <div class="field">
                                             <div class="control">
-                                                <textarea class="textarea" placeholder="Enter content">{{content}}</textarea>
+                                                <textarea name="content" id="post-content" class="textarea" placeholder="Enter content">{{content}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <!-- Left empty for spacing -->
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <div class="control">
+                                                <button class="button is-primary" onclick="">
+                                                    发布文章
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             {{/post}}
-                            <div class="field is-horizontal">
-                                <div class="field-label">
-                                    <!-- Left empty for spacing -->
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <button class="button is-primary">
-                                                发布文章
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </main>
