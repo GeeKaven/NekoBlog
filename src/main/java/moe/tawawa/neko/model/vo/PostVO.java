@@ -25,12 +25,15 @@ public class PostVO {
 
     private UserVO user;
 
+    private Boolean published;
+
     public PostVO() {
 
     }
 
     public PostVO(Post post) {
         BeanUtils.copyProperties(post, this);
+        this.published = Post.STATUS_PUBLISH.equals(post.getStatus());
     }
 
 }

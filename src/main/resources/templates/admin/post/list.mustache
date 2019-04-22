@@ -24,24 +24,37 @@
                                         <th>类目</th>
                                         <th>标签</th>
                                         <th>作者</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {{#posts}}
                                     <tr>
                                         <th>{{id}}</th>
-                                        <td>{{title}}</td>
+                                        <td><a href="/admin/post/edit/{{id}}">{{title}}</a></td>
                                         <td>cat</td>
                                         <td>tag</td>
                                         <td>user</td>
+                                        <td>
+                                            {{^published}}
+                                            <a onclick="post.published({{id}})">发布</a>
+                                            {{/published}}
+                                            <a onclick="post.deleted({{id}})">删除</a>
+                                        </td>
                                     </tr>
                                     {{/posts}}
                                 </tbody>
                             </table>
                             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                                {{^hasPre}}
+                                    <a class="pagination-previous" disabled>上一页</a>
+                                {{/hasPre}}
                                 {{#hasPre}}
                                     <a class="pagination-previous" href="/admin/post/list?page={{preNum}}">上一页</a>
                                 {{/hasPre}}
+                                {{^hasNext}}
+                                    <a class="pagination-next" disabled>下一页</a>
+                                {{/hasNext}}
                                 {{#hasNext}}
                                     <a class="pagination-next" href="/admin/post/list?page={{nextNum}}">下一页</a>
                                 {{/hasNext}}

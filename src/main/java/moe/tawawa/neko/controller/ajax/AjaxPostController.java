@@ -9,9 +9,13 @@ import moe.tawawa.neko.model.response.data.CreateData;
 import moe.tawawa.neko.model.response.data.VoidData;
 import moe.tawawa.neko.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,6 +42,18 @@ public class AjaxPostController {
     @PostMapping(value = "/update")
     public JsonResponse updatePost(@RequestBody PostUpdateRequest request) {
         postService.updatePost(request);
+        return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), new VoidData());
+    }
+
+    @PutMapping(value = "/publish/{postId}")
+    public JsonResponse publishPost(@PathVariable(value = "postId") Long postId) {
+        postService.publishPost(postId);
+        return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), new VoidData());
+    }
+
+    @DeleteMapping(value = "/delete/{postId}")
+    public JsonResponse deletePost(@PathVariable(value = "postId") Long postId) {
+        postService.deletePost(postId);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), new VoidData());
     }
 

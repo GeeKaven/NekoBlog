@@ -13,4 +13,8 @@ public class ListData<T> {
     private List<T> list;
 
     private long size;
+
+    private boolean last;
+
+    private boolean first;
 }

@@ -6,10 +6,18 @@ package moe.tawawa.neko.model.request;
  */
 public class ListRequest {
 
-
     private Integer page = 1;
 
     private Integer size = 10;
+
+    public ListRequest() {
+
+    }
+
+    public ListRequest(Integer page, Integer size) {
+        this.page = page;
+        this.size = size;
+    }
 
     public Integer getPage() {
         return page;

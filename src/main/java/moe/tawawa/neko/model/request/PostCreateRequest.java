@@ -18,7 +18,5 @@ public class PostCreateRequest {
 
     private Long categoryId;
 
-    private Boolean enableComment;
-
     private Integer type;
 }

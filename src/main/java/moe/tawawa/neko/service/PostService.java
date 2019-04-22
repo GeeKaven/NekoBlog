@@ -100,8 +100,8 @@ public class PostService {
      * 删除文章
      * @param postId 文章Id
      */
-    public Long deletePost(Long postId) {
-        return updateStatus(postId, Post.STATUS_DEL);
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
     }
 
     public Page<Post> findAllByPage(int page, int size) {
@@ -109,11 +109,17 @@ public class PostService {
         return postRepository.findAll(pageable);
     }
 
+    public ListData<PostVO> getAllPostListByPage(ListRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , new Sort(Sort.Direction.DESC, "id"));
+        Page<Post> postPage = postRepository.findAll(pageable);
+        return buildPostList(postPage);
+    }
+
     /**
      * 通过状态，类型获取文章列表
      * @return 文章列表
      */
-    public ListData<PostVO> getPostListByPage(ListRequest request) {
+    public ListData<PostVO> getPublishedPostListByPage(ListRequest request) {
 
         Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , new Sort(Sort.Direction.DESC, "id"));
         Page<Post> postPage = postRepository.findByStatusAndType(Post.STATUS_PUBLISH, Post.TYPE_POST, pageable);
@@ -174,6 +180,8 @@ public class PostService {
         ListData<PostVO> result = new ListData<>();
         result.setList(postList);
         result.setSize(postPage.getTotalElements());
+        result.setFirst(postPage.isFirst());
+        result.setLast(postPage.isLast());
         return result;
     }
 }

@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
- * @author: laiang
+ * @author: GeeKaven
  * @date: 2019/4/15 23:07
  */
 @Controller
@@ -39,7 +41,8 @@ public class AdminPostController {
     @GetMapping("/list")
     public String list(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
         page = page < 0 ? 0 : page - 1;
-        Page<Post> list = postService.findAllByPage(page, 10);
+
+        ListData<PostVO> list = postService.getAllPostListByPage(new ListRequest(page, 10));
         if (!list.isFirst()) {
             model.addAttribute("hasPre", true);
             model.addAttribute("preNum", page);
@@ -53,7 +56,7 @@ public class AdminPostController {
         } else {
             model.addAttribute("hasNext", false);
         }
-        model.addAttribute("posts", list.getContent());
+        model.addAttribute("posts", list.getList());
         model.addAttribute("title", "文章管理/文章列表");
         return "admin/post/list";
     }

@@ -25,9 +25,8 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
 
-    public static final Integer STATUS_DEFAULT = 0;
+    public static final Integer STATUS_DRAFT = 0;
     public static final Integer STATUS_PUBLISH = 1;
-    public static final Integer STATUS_DEL = 2;
 
     public static final Integer TYPE_POST = 0;
     public static final Integer TYPE_PAGE = 1;
@@ -72,7 +71,7 @@ public class Post {
     /**
      * 文章状态 （草稿，发布，删除）
      */
-    private Integer status = STATUS_DEFAULT;
+    private Integer status = STATUS_DRAFT;
 
     /**
      * 文章类型 （文章，页面）

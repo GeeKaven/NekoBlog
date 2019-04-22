@@ -32,7 +32,7 @@ public class PostController {
 
     @PostMapping(value = "/list")
     public JsonResponse queryPostByPage(@RequestBody ListRequest request) {
-        ListData<PostVO> result = postService.getPostListByPage(request);
+        ListData<PostVO> result = postService.getPublishedPostListByPage(request);
         return new JsonResponse(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getErrorMsg(), result);
     }
 
