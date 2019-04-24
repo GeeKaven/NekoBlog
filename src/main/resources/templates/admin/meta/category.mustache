@@ -13,6 +13,38 @@
                             <li class="is-active"><a href="#" aria-current="page">类目管理</a></li>
                         </ul>
                     </nav>
+                    <div class="columns is-multiline">
+                        <div class="column is-9 is-gapless" id="category-form">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input name="name" id="category-name" class="input" type="text" placeholder="类目名称"/>
+                                </div>
+                                <div class="control">
+                                    <a class="button is-info" onclick="meta.addCategory()">
+                                        添加
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>名称</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#categories}}
+                                    <tr>
+                                        <th>{{id}}</th>
+                                        <td>{{name}}</td>
+                                    </tr>
+                                {{/categories}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>

@@ -42,3 +42,40 @@ let post = {
         }
     }
 };
+
+let meta = {
+    addTag : function () {
+        let data = {
+            "name": $("#tag-name").val()
+        };
+        console.info(data);
+        let json = JSON.stringify(data);
+        $.ajax({
+            url: '/api/admin/element/tag/add',
+            type: 'POST',
+            data: json,
+            contentType: 'application/json',
+            success: function () {
+                alert("提交成功");
+                window.location.reload();
+            }
+        })
+    },
+    addCategory : function () {
+        let data = {
+            "name": $("#category-name").val()
+        };
+        console.info(data);
+        let json = JSON.stringify(data);
+        $.ajax({
+            url: '/api/admin/element/category/add',
+            type: 'POST',
+            data: json,
+            contentType: 'application/json',
+            success: function () {
+                alert("提交成功");
+                window.location.reload();
+            }
+        })
+    }
+};

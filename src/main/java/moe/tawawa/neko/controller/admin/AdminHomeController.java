@@ -31,12 +31,12 @@ public class AdminHomeController {
     @GetMapping(value = "/category")
     public String categoryList(Model model) {
         model.addAttribute("title", "后台管理/类目管理");
-        return "admin/category";
+        return "admin/meta/category";
     }
 
     @GetMapping(value = "/tag")
     public String tagList(Model model) {
         model.addAttribute("title", "后台管理/标签管理");
-        return "admin/tag";
+        return "admin/meta/tag";
     }
 }
