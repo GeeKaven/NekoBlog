@@ -1,5 +1,9 @@
 package moe.tawawa.neko.controller.admin;
 
+import moe.tawawa.neko.model.response.data.ListData;
+import moe.tawawa.neko.model.vo.CategoryVO;
+import moe.tawawa.neko.model.vo.TagVO;
+import moe.tawawa.neko.service.ElementService;
 import moe.tawawa.neko.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +21,12 @@ public class AdminHomeController {
 
     private final PostService postService;
 
+    private final ElementService elementService;
+
     @Autowired
-    public AdminHomeController(PostService postService) {
+    public AdminHomeController(PostService postService, ElementService elementService) {
         this.postService = postService;
+        this.elementService = elementService;
     }
 
     @GetMapping
@@ -28,15 +35,15 @@ public class AdminHomeController {
         return "admin/index";
     }
 
-    @GetMapping(value = "/category")
+    @GetMapping(value = "/meta")
     public String categoryList(Model model) {
-        model.addAttribute("title", "后台管理/类目管理");
-        return "admin/meta/category";
-    }
 
-    @GetMapping(value = "/tag")
-    public String tagList(Model model) {
-        model.addAttribute("title", "后台管理/标签管理");
-        return "admin/meta/tag";
+        ListData<CategoryVO> catList = elementService.queryAllCategory();
+        ListData<TagVO> tagList = elementService.queryAllTag();
+
+        model.addAttribute("categories", catList.getList());
+        model.addAttribute("tags", tagList.getList());
+        model.addAttribute("title", "后台管理/类目标签管理");
+        return "admin/meta";
     }
 }

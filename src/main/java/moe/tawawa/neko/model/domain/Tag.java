@@ -22,9 +22,6 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Tag {
 
-    public static final Integer STATUS_NORMAL = 0;
-    public static final Integer STATUS_DEL = 1;
-
     /**
      * 标签编号
      */
@@ -41,11 +38,6 @@ public class Tag {
      * 标签名称
      */
     private String name;
-
-    /**
-     * 标签状态
-     */
-    private Integer status = STATUS_NORMAL;
 
     @CreatedDate
     private Date createdAt;

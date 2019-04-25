@@ -22,9 +22,6 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Category {
 
-    public static final Integer STATUS_NORMAL = 0;
-    public static final Integer STATUS_DEL = 1;
-
     /**
      * 分类编号
      */
@@ -36,11 +33,6 @@ public class Category {
      * 用户编号
      */
     private Long userId;
-
-    /**
-     * 状态
-     */
-    private Integer status;
 
     /**
      * 分类名称
