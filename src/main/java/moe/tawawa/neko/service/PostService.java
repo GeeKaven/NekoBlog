@@ -1,5 +1,6 @@
 package moe.tawawa.neko.service;
 
+import com.google.common.collect.Lists;
 import moe.tawawa.neko.exception.BadRequestException;
 import moe.tawawa.neko.model.domain.Post;
 import moe.tawawa.neko.model.domain.PostTag;
@@ -105,12 +106,12 @@ public class PostService {
     }
 
     public Page<Post> findAllByPage(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size , new Sort(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(page, size , Sort.by(Sort.Direction.DESC, "id"));
         return postRepository.findAll(pageable);
     }
 
     public ListData<PostVO> getAllPostListByPage(ListRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , new Sort(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , Sort.by(Sort.Direction.DESC, "id"));
         Page<Post> postPage = postRepository.findAll(pageable);
         return buildPostList(postPage);
     }
@@ -121,14 +122,14 @@ public class PostService {
      */
     public ListData<PostVO> getPublishedPostListByPage(ListRequest request) {
 
-        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , new Sort(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , Sort.by(Sort.Direction.DESC, "id"));
         Page<Post> postPage = postRepository.findByStatusAndType(Post.STATUS_PUBLISH, Post.TYPE_POST, pageable);
         return buildPostList(postPage);
     }
 
     public ListData<PostVO> getPostListByCategory(ElementPostRequest request) {
 
-        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , new Sort(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize() , Sort.by(Sort.Direction.DESC, "id"));
         Page<Post> postPage = postRepository.findByStatusAndTypeAndCategoryId(Post.STATUS_PUBLISH, Post.TYPE_POST, request.getId(), pageable);
         return buildPostList(postPage);
     }
